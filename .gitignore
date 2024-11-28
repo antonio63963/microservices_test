@@ -1,0 +1,7 @@
+node_modules
+.vscode
+nbproject
+dist
+build
+*.tsbuildinfo
+package-lock.json
