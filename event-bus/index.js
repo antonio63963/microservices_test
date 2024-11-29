@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/events", (req, res) => {
   const event = req.body;
-  console.log(req.body);
+  console.log('BODY: ', req.body.type || {});
 
   axios.post("http://localhost:4000/events", event);
   axios.post("http://localhost:4001/events", event);
@@ -18,3 +18,7 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4005, () => console.log("Server EventBus has ran on port 4005"));
+
+process.on('uncaughtException', function (err) {
+  console.log('ERRROROR: ', err);
+});

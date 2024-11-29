@@ -21,7 +21,16 @@ app.post("/events", (req, res) => {
   }
   if (type == "CommentCreated") {
     const { postId, content, id, status } = data;
+    console.log('POSTS: ', posts)
+    console.log('CommentCreated: ', data)
     posts[postId].comments.push({ id, content, status });
+  }
+  if(type === 'CommentUpdated') {
+    const { postId, id } = data;
+    console.log('CommentModerated: ', data)
+    const comment = posts[postId].comments.find(c => c.id === id);
+    comment.status = data.status;
+    comment.content = data.content;
   }
 
   res.send({});
@@ -29,4 +38,8 @@ app.post("/events", (req, res) => {
 
 app.listen(4002, () => {
   console.log("Server Query started on port ", 4002);
+});
+
+process.on('uncaughtException', function (err) {
+  console.log('ERRROROR: ', err);
 });
